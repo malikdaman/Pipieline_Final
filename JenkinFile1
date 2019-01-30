@@ -27,7 +27,7 @@ pipeline
         {
             steps
             {
-                git 'https://github.com/malikdaman/file.git'
+                git 'github.com/malikdaman/123.git'
             }
         }
     }
