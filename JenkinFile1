@@ -35,7 +35,7 @@ pipeline
     {
         success
         {
-          sh 'scp /home/ubuntu/.jenkins/workspace/PI/webapp/target/webapp.war ubuntu@172.31.27.190:/var/lib/tomcat7/webapps/qaenv.war'
+          sh 'scp /home/ubuntu/.jenkins/workspace/PI/webapp/target/webapp.war ubuntu@172.31.27.190:/var/lib/tomcat7/webapps/prodenv.war'
         }
         failure
         {
