@@ -1,0 +1,45 @@
+pipeline
+{
+    agent any
+    stages{
+        stage('Cont_Download') 
+        {
+            steps
+            {
+                git 'https://github.com/malikdaman/Pipieline_Final.git'
+            }
+        }
+        stage('Cont_Build') 
+        {
+            steps
+        {
+            sh 'mvn package'
+        }
+        }
+        stage('Cont_Deploy') 
+        {
+            steps
+            {
+           sh 'scp /home/ubuntu/.jenkins/workspace/PI/webapp/target/webapp.war ubuntu@172.31.29.87:/var/lib/tomcat7/webapps/qaenv.war'
+            }
+        }
+        stage('Cont_Testing') 
+        {
+            steps
+            {
+                git 'https://github.com/malikdaman/Pipeline_Testing.git'
+            }
+        }
+    }
+    post
+    {
+        success
+        {
+          sh 'scp /home/ubuntu/.jenkins/workspace/PI/webapp/target/webapp.war ubuntu@172.31.27.190:/var/lib/tomcat7/webapps/qaenv.war'
+        }
+        failure
+        {
+            mail bcc: '', body: 'Build Failed', cc: '', from: '', replyTo: '', subject: 'Build Failed', to: 'malikdaman24@gmail.com'
+        }
+    }
+}
